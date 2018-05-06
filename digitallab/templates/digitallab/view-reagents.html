@@ -1,0 +1,59 @@
+{% extends "main_template.html" %}
+
+{% block title_content %}
+{% load static %}
+    <title>Reagents</title>
+    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
+<script type="text/javascript" language="javascript" src="{% static '/js/jsme/jsme.nocache.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Compound</th>
+                    <th>UIPAC Name</th>
+                    <th>Molecular Formula</th>
+                    <th>Structure</th>
+                    <th>Location</th>
+                    <th>Receipt Date</th>
+                    <th>Storage Life</th>
+                    <th>Amount</th>
+                    <th>Units</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reagent : ${reagents}">
+                    <td th:text="${reagent.id}">1</td>
+                    <td th:text="${reagent.compound.getShortName()}">1</td>
+                    <td th:text="${reagent.compound.getIupacName()}">1</td>
+                    <td th:text="${reagent.compound.getFormula()}">1</td>
+                    <td>
+                        <div code="JME.class" name="JME" archive="JME.jar" width="120" height="80" id="JME">
+                            <param name="options" value="depict,useopenchemlib" />
+                            <param name="jme" th:value="${reagent.compound.jmeFile}" />
+                        </div>
+                    </td>
+                    <td th:text="${reagent.reagentLocation.getDescr()}">1</td>
+                    <td th:text="${reagent.receiptDate}">1</td>
+                    <td th:text="${reagent.storageLife}">1</td>
+                    <td th:text="${reagent.amount}">1</td>
+                    <td th:text="${reagent.measurementUnits}">1</td>
+                    <td th:text="${reagent.comments}">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

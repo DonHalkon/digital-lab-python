@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    {% block title_content %}
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="topnav navbar navbar-inverse">
+        <div class="container">
+            <div id="navbar" class="collapse navbar-collapse ">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+            </button>
+                <a class="navbar-brand" href="/digitallab">Digital Lab</a>
+
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/digitallab/reagents/add-reagent">Add New Reagent</a></li>
+                    <li class="active"><a href="/digitallab/reagents/view-reagents">View Reagents</a></li>
+                    <li class="active"><a href="/digitallab/reagentlocations/add-reagentlocation">Add New Reagent Location</a></li>
+                    <li class="active"><a href="/digitallab/reagentlocations/view-reagentlocations">View Locations</a></li>
+                    <li class="active"><a href="/digitallab/compounds/edit-compound">Add New Compound</a></li>
+                    <li class="active"><a href="/digitallab/compounds/view-compounds">View Compounds</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+            {% block content %}
+            {% endblock %}
+</body>
+
+</html>

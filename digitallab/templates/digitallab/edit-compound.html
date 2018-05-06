@@ -1,0 +1,77 @@
+{% extends "main_template.html" %}
+
+{% block title_content %}
+    <title>Edit compound</title>
+    {% load static %}
+    <script type="text/javascript" language="javascript" src="{% static '/js/jsme/jsme.nocache.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="{% static '/js/getBySmiles.js' %}"></script>
+    <script>
+        //this function will be called after the JavaScriptApplet code has been loaded.
+        function jsmeOnLoad() {
+            jsmeApplet = new JSApplet.JSME("jsme_container", "640px", "480px");
+            jsmeApplet.setNotifyStructuralChangeJSfunction("add_jme_file");
+            jsmeApplet.readMolecule(document.getElementById("jmeFile").value);
+        }
+
+        function add_jme_file() {
+            var data = jsmeApplet.jmeFile();
+            document.getElementById("jmeFile").value = data;
+        }
+    </script>
+{% endblock %}
+
+
+{% block content %}
+
+    <h1 class="col-sm-offset-1">Add New Compound</h1>
+
+    <div style="width:60%">
+        {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="save-compound" method="post" class="form-horizontal">
+            {% csrf_token %}
+
+            <div class="row form-group" hidden="true">
+                <input name="jmeFile" id="jmeFile"/>
+                <input name="id"/>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">CID:</label>
+                <div class="col-sm-10">
+                    <input name="cid" id="cid"/>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">Short Name:</label>
+                <div class="col-sm-10">
+                    <input name="name"/>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">Molecular Formula:</label>
+                <div class="col-sm-10">
+                    <input name="formula" id="molecular-formula-input"/>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <label class="col-sm-2 control-label">IUPAC Name:</label>
+                <div class="col-sm-10">
+                    <input id="iupac-name-input" name="IUPAC Name"/>
+                </div>
+            </div>
+
+            <div id="jsme_container" class="col-sm-offset-5"></div>
+
+            <div class="row col-sm-offset-5">
+                <button type="button" onclick="findBySmiles()" id="find-by-smiles-button" value="find-by-smiles" class="btn btn-primary">Find in PubChem
+            </button>
+                <button class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

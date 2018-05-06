@@ -1,0 +1,57 @@
+{% extends "main_template.html" %}
+
+{% block title_content %}
+    <title>Compounds</title>
+    {% load static %}
+    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
+    <script type="text/javascript" language="javascript" src="{% static '/js/jsme/jsme.nocache.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <!--<div th:if="${message != null}" th:assert="${!#strings.isEmpty(message)}" th:class="|alert ${messageColor}|">-->
+        <!--<strong><span th:text="${message}"></span></strong>-->
+    <!--</div>-->
+
+    <div class="content">
+        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="table">
+            <thead>
+                <tr>
+                    <th>Short Name</th>
+                    <th>IUPAC Name</th>
+                    <th>Molecular Formula</th>
+                    <th>Structure</th>
+                    <th>CID</th>
+                    <!--<th>Edit</th>-->
+                </tr>
+            </thead>
+            <tbody>
+                {% if compounds_list %} {% for compound in compounds_list %}
+                <tr>
+                    <td>{{ compound.shortName }}</td>
+                    <td>{{ compound.iupacName }}</td>
+                    <td>{{ compound.molecularFormula }}</td>
+                    <td>
+                        <div code="JME.class" name="JME" archive="JME.jar" width="120" height="80" id="JME">
+                            <param name="options" value="depict,useopenchemlib" />
+                            <param name="jme" value="{{ compound.structure }}" />
+                        </div>
+                    </td>
+                    <td>{{ compound.cid }}</td>
+                </tr>
+
+                {% endfor %} {% else %}
+                <p>No compound was found.</p>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

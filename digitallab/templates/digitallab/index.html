@@ -1,0 +1,25 @@
+{% extends "main_template.html" %}
+
+{% block title_content %}
+    <title>Welcome to the Digital Lab</title>
+{% endblock %}
+
+
+{% block content %}
+    <center>
+        <h1>Welcome to the digital lab!</h1>
+        <div style="max-width: 60%;min-width: 400px;">
+            <p>Digital Lab is a helper for people working in chemical laboratory. It contains tools for experiment planing, control of reactants on shelves, constants and formulas handbook, it also calculates reaction conditions and other variables. It stores
+                all data about your experiment reactants, products, conditions, yelds, comments, photos, spectras and other data. And the main feature of this project: it has grpah database to connect your chemical reactions each other. You can share
+                you data with other chemists from other labs in your or other organization and create your own knowlage base. It has convenient tools and templates for paper writing. We also have mobile app that you can work and correct you current experiment
+                data without departing hood or weights.
+                <br/>
+                <br/> But now it is only the plans for future)).
+                <br/>
+                <br/>
+            </p>
+        </div>
+
+        <a href="/digitallab/reagents/view-reagents" class="btn btn-lg btn-success">Enter</a>
+    </center>
+{% endblock %}
