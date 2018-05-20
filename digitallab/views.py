@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.views import generic
 
 from .models import Compound
+from .models import ReagentLocation
+from .models import Reagent
+# from .forms import  ReagentLocationForm
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'digitallab/index.html')
-
-
 def edit_compound(request):
     return render(request, 'digitallab/edit-compound.html')
 
@@ -25,10 +24,6 @@ def save_compound(request):
     return render(request, 'digitallab/view-compounds.html', {'compounds_list': Compound.objects.order_by('-id')})
 
 
-def reagents(request):
-    return render(request, 'digitallab/view-reagents.html')
-
-
 def edit_reagents(request):
     return render(request, 'digitallab/add-reagent.html')
 
@@ -40,12 +35,20 @@ def reagent_locations(request):
 def edit_reagent_location(request):
     return render(request, 'digitallab/add-reagentlocation.html')
 
+
+def save_reagent_location(request):
+    descr = request.POST['desct']
+    ReagentLocation(descr=descr).save()
+    return render(request, 'digitallab/view-reagentlocations.html')
+
+
 class ReagentsView(generic.ListView):
     template_name = 'digitallab/view-reagents.html'
     context_object_name = 'reagents_list'
 
     def get_queryset(self):
-        return
+        return ReagentLocation.objects.order_by('-id')
+
 
 class CompoundView(generic.ListView):
     template_name = 'digitallab/view-compounds.html'
