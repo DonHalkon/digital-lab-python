@@ -4,7 +4,6 @@ from django.views import generic
 from .models import Compound
 from .models import ReagentLocation
 from .models import Reagent
-# from .forms import  ReagentLocationForm
 
 
 # Create your views here.
