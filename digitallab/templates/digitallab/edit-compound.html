@@ -10,12 +10,12 @@
         function jsmeOnLoad() {
             jsmeApplet = new JSApplet.JSME("jsme_container", "640px", "480px");
             jsmeApplet.setNotifyStructuralChangeJSfunction("add_jme_file");
-            jsmeApplet.readMolecule(document.getElementById("jmeFile").value);
+            jsmeApplet.readMolecule(document.getElementById("id_structure").value);
         }
 
         function add_jme_file() {
             var data = jsmeApplet.jmeFile();
-            document.getElementById("jmeFile").value = data;
+            document.getElementById("id_structure").value = data;
         }
 
 </script>
@@ -30,41 +30,24 @@
     {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <form action="save-compound" method="post" class="form-horizontal">
+    <form action="" id="compound_form" method="post" class="form-horizontal">
         {% csrf_token %}
 
-        <div class="row form-group" hidden="true">
-            <input name="jmeFile" id="jmeFile"/>
-            <input name="id"/>
-        </div>
+        {% for hidden in form.hidden_fields%}
+        {{ hidden }}
+        {% endfor %}
 
-        <div class="row form-group">
-            <label class="col-sm-2 control-label">CID:</label>
+        {% for field in form.visible_fields%}
+        <div class="row form-group ">
+            {{ field.errors }}
+            <label class="col-sm-2 control-label">
+                {{ field.help_text }}
+            </label>
             <div class="col-sm-10">
-                <input name="cid" id="cid"/>
+                {{ field }}
             </div>
         </div>
-
-        <div class="row form-group">
-            <label class="col-sm-2 control-label">Short Name:</label>
-            <div class="col-sm-10">
-                <input name="name"/>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <label class="col-sm-2 control-label">Molecular Formula:</label>
-            <div class="col-sm-10">
-                <input name="formula" id="molecular-formula-input"/>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <label class="col-sm-2 control-label">IUPAC Name:</label>
-            <div class="col-sm-10">
-                <input id="iupac-name-input" name="IUPAC Name"/>
-            </div>
-        </div>
+        {% endfor %}
 
         <div id="jsme_container" class="col-sm-offset-5"></div>
 

@@ -11,9 +11,9 @@ function findBySmiles() {
                     var result = JSON.parse(this.responseText).PropertyTable.Properties[0];
                     // console.log(xmlHttp.responseText)
                     if (Object.keys(result).length > 2) {
-                        document.getElementById("iupac-name-input").value = result.IUPACName;
-                        document.getElementById("cid").value = result.CID;
-                        document.getElementById("molecular-formula-input").value = result.MolecularFormula;
+                        document.getElementById("id_iupacName").value = result.IUPACName;
+                        document.getElementById("id_cid").value = result.CID;
+                        document.getElementById("id_molecularFormula").value = result.MolecularFormula;
                     } else {
                         alert("Compound was not found!")
                     }

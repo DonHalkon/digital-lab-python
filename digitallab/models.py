@@ -5,25 +5,22 @@ units = {'mg', 'kg', 'ml', 'l'}
 
 # Create your models here.
 class Compound(models.Model):
-    shortName = models.CharField(max_length=200)
-    iupacName = models.CharField(max_length=1200)
-    molecularFormula = models.CharField(max_length=1200)
-    structure = models.CharField(max_length=10000)
-    cid = models.CharField(max_length=200)
+    shortName = models.CharField(max_length=200, unique=True, null=False)
+    iupacName = models.CharField(max_length=1200, unique=True)
+    molecularFormula = models.CharField(max_length=1200, unique=True)
+    structure = models.CharField(max_length=10000, unique=True, null=False)
+    cid = models.CharField(max_length=200, unique=True)
 
 
 class ReagentLocation(models.Model):
-    descr = models.CharField(max_length=1200)
-
-    def get_absolute_url(self):
-        return 'view-reagentlocations'
+    descr = models.CharField(max_length=1200, unique=True, null=False)
 
 
 class Reagent(models.Model):
     receiptDate = models.DateField()
     storageLife = models.CharField(max_length=200)
-    compoundId = models.IntegerField()
+    compoundId = models.ForeignKey(Compound, on_delete=models.CASCADE)
     amount = models.CharField(max_length=20)
     measurementUnits = models.SET(units)
-    reagentLocation = models.IntegerField()
+    reagentLocation = models.ForeignKey(ReagentLocation, on_delete=models.CASCADE)
     comments = models.CharField(max_length=200)

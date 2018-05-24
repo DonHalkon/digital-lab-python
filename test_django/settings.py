@@ -19,7 +19,7 @@ DIGITAL_LAB_TEMPLATES_DIR = os.path.join(BASE_DIR, 'digitallab/templates')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL = os.path.join(BASE_DIR, 'static')
+STATIC_URL = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = (
     STATIC_URL, 
