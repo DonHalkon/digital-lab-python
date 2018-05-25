@@ -42,7 +42,7 @@ class ReagentLocationForm(forms.ModelForm):
 class ReagentForm(forms.ModelForm):
     receiptDate = forms.DateField(help_text='Reception date')
     storageLife = forms.CharField(help_text='Storage life')
-    compoundId = CompoundModelChoiceField(Compound.objects, help_text='Select compound')
+    compound = CompoundModelChoiceField(Compound.objects, help_text='Select compound')
     amount = forms.CharField(max_length=20, help_text='Amount')
     measurementUnits = forms.ChoiceField(choices=units, help_text='Measurement units')
     reagentLocation = ReagentLocationChoiceField(ReagentLocation.objects, help_text='Select location')
@@ -50,5 +50,5 @@ class ReagentForm(forms.ModelForm):
 
     class Meta:
         model = Reagent
-        fields = ('receiptDate', 'storageLife', 'compoundId', 'amount', 'measurementUnits', 'reagentLocation',
+        fields = ('receiptDate', 'storageLife', 'compound', 'amount', 'measurementUnits', 'reagentLocation',
                   'comments', )

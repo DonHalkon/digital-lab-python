@@ -59,7 +59,7 @@ class ReagentsView(generic.ListView):
     context_object_name = 'reagents_list'
 
     def get_queryset(self):
-        return ReagentLocation.objects.order_by('-id')
+        return Reagent.objects.order_by('-id')
 
 
 class CompoundView(generic.ListView):

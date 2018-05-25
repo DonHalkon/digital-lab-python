@@ -26,7 +26,7 @@ class ReagentLocation(models.Model):
 class Reagent(models.Model):
     receiptDate = models.DateField()
     storageLife = models.CharField(max_length=200)
-    compoundId = models.ForeignKey(Compound, on_delete=models.CASCADE)
+    compound = models.ForeignKey(Compound, on_delete=models.CASCADE)
     amount = models.CharField(max_length=20)
     measurementUnits = models.IntegerField(units)
     reagentLocation = models.ForeignKey(ReagentLocation, on_delete=models.CASCADE)
