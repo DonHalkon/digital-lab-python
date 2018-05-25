@@ -24,10 +24,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="reagentLocation : ${locations}">
-                    <td th:text="${reagentLocation.id}">1</td>
-                    <td th:text="${reagentLocation.descr}">1</td>
+            {% if reagentlocations_list %} {% for reagentlocation in reagentlocations_list %}
+                <tr>
+                    <td>{{ reagentlocation.id }}</td>
+                    <td>{{ reagentlocation.descr }}</td>
                 </tr>
+            {% endfor %}
+            {% else %}
+            <p>No reagent locations was found.</p>
+            {% endif %}
             </tbody>
         </table>
     </div>

@@ -4,26 +4,10 @@ from django.views import generic
 from .models import Compound
 from .models import ReagentLocation
 from .models import Reagent
-from .forms import CompoundForm
+from .forms import CompoundForm, ReagentForm, ReagentLocationForm
 
 
 # Create your views here.
-def edit_compound(request):
-    return render(request, 'digitallab/edit-compound.html')
-
-
-def save_compound(request):
-    jmeFile = request.POST['jmeFile']
-    cid = request.POST['cid']
-    name = request.POST['name']
-    formula = request.POST['formula']
-    IUPAC_Name = request.POST['IUPAC Name']
-    if len(name) == 0:
-        name = IUPAC_Name
-    Compound(shortName=name, iupacName=IUPAC_Name, molecularFormula=formula, structure=jmeFile, cid=cid).save()
-    return render(request, 'digitallab/view-compounds.html', {'compounds_list': Compound.objects.order_by('-id')})
-
-
 def add_compound(request):
     form = CompoundForm()
 
@@ -37,16 +21,24 @@ def add_compound(request):
     return render(request, 'digitallab/edit-compound.html', {'form': form})
 
 
-def edit_reagents(request):
+def add_reagent(request):
     return render(request, 'digitallab/add-reagent.html')
 
 
 def reagent_locations(request):
-    return render(request, 'digitallab/view-reagentlocations.html')
+    return render(request, 'digitallab/view-reagentlocations.html',
+                  {'reagentlocations_list': ReagentLocation.objects.order_by('-id')})
 
 
-def edit_reagent_location(request):
-    return render(request, 'digitallab/add-reagentlocation.html')
+def add_reagent_location(request):
+    form = ReagentLocationForm()
+    if request.method == 'POST':
+        form = ReagentLocationForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return render(request, 'digitallab/view-reagentlocations.html',
+                          {'reagentlocations_list': ReagentLocation.objects.order_by('-id')})
+    return render(request, 'digitallab/add-reagentlocation.html', {'form': form})
 
 
 def save_reagent_location(request):
