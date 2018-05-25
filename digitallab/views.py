@@ -22,7 +22,14 @@ def add_compound(request):
 
 
 def add_reagent(request):
-    return render(request, 'digitallab/add-reagent.html')
+    form = ReagentForm()
+    if request.method == 'POST':
+        form = ReagentForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return render(request, 'digitallab/view-reagents.html',
+                          {'reagents_list': Reagent.objects.order_by('-id')})
+    return render(request, 'digitallab/add-reagent.html', {'form': form})
 
 
 def reagent_locations(request):

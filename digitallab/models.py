@@ -1,6 +1,13 @@
 from django.db import models
 
-units = {'mg', 'kg', 'ml', 'l'}
+units = (
+    (1, ('mg')),
+    (2, ('kg')),
+    (3, ('g')),
+    (4, ('ml')),
+    (5, ('l')),
+    (6, ('nl'))
+)
 
 
 # Create your models here.
@@ -21,6 +28,6 @@ class Reagent(models.Model):
     storageLife = models.CharField(max_length=200)
     compoundId = models.ForeignKey(Compound, on_delete=models.CASCADE)
     amount = models.CharField(max_length=20)
-    measurementUnits = models.SET(units)
+    measurementUnits = models.IntegerField(units)
     reagentLocation = models.ForeignKey(ReagentLocation, on_delete=models.CASCADE)
     comments = models.CharField(max_length=200)

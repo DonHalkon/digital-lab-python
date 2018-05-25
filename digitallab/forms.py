@@ -2,6 +2,16 @@ from django import forms
 from digitallab.models import Compound, ReagentLocation, Reagent, units
 
 
+class CompoundModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.shortName
+
+
+class ReagentLocationChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.descr
+
+
 class CompoundForm(forms.ModelForm):
     iupacName = forms.CharField(help_text='UIPAC Name')
     shortName = forms.CharField(help_text='Short Name', min_length=1, required=False)
@@ -32,11 +42,11 @@ class ReagentLocationForm(forms.ModelForm):
 class ReagentForm(forms.ModelForm):
     receiptDate = forms.DateField(help_text='Reception date')
     storageLife = forms.CharField(help_text='Storage life')
-    compoundId = forms.ModelChoiceField(Compound)
-    amount = forms.CharField(max_length=20)
-    measurementUnits = forms.ChoiceField(choices=units)
-    reagentLocation = forms.ModelChoiceField(ReagentLocation)
-    comments = forms.CharField(max_length=200)
+    compoundId = CompoundModelChoiceField(Compound.objects, help_text='Select compound')
+    amount = forms.CharField(max_length=20, help_text='Amount')
+    measurementUnits = forms.ChoiceField(choices=units, help_text='Measurement units')
+    reagentLocation = ReagentLocationChoiceField(ReagentLocation.objects, help_text='Select location')
+    comments = forms.CharField(max_length=200, help_text='Comments')
 
     class Meta:
         model = Reagent
