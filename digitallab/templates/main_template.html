@@ -15,15 +15,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
             </button>
-                <a class="navbar-brand" href="/digitallab">Digital Lab</a>
+                <a class="navbar-brand" href="{% url 'index' %}">Digital Lab</a>
 
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/digitallab/reagents/add-reagent">Add New Reagent</a></li>
-                    <li class="active"><a href="/digitallab/reagents/view-reagents">View Reagents</a></li>
-                    <li class="active"><a href="/digitallab/reagentlocations/add-reagentlocation">Add New Reagent Location</a></li>
-                    <li class="active"><a href="/digitallab/reagentlocations/view-reagentlocations">View Locations</a></li>
-                    <li class="active"><a href="/digitallab/compounds/add-compound">Add New Compound</a></li>
-                    <li class="active"><a href="/digitallab/compounds/view-compounds">View Compounds</a></li>
+                    <li class="active"><a href="{% url 'add-reagent' %}">Add New Reagent</a></li>
+                    <li class="active"><a href="{% url 'view-reagents' %}">View Reagents</a></li>
+                    <li class="active"><a href="{% url 'add-reagentlocation' %}">Add New Reagent Location</a></li>
+                    <li class="active"><a href="{% url 'view-reagentlocations' %}">View Locations</a></li>
+                    <li class="active"><a href="{% url 'add-compound' %}">Add New Compound</a></li>
+                    <li class="active"><a href="{% url 'view-compounds' %}">View Compounds</a></li>
                 </ul>
             </div>
         </div>

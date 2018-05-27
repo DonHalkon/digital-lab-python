@@ -18,6 +18,7 @@
             document.getElementById("id_structure").value = data;
         }
 
+
 </script>
 {% endblock %}
 
@@ -27,8 +28,13 @@
 <h1 class="col-sm-offset-1">Add New Compound</h1>
 
 <div style="width:60%">
-    {% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% if form.errors %}
+
+    <div class="alert alert-danger">
+        <strong>{{ form.non_field_errors }}</strong>
+    </div>
+
+    {% endif %}
 
     <form action="" id="compound_form" method="post" class="form-horizontal">
         {% csrf_token %}
@@ -39,7 +45,11 @@
 
         {% for field in form.visible_fields%}
         <div class="row form-group ">
-            {{ field.errors }}
+            {% if field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ field.errors }}</strong>
+            </div>
+            {% endif %}
             <label class="col-sm-2 control-label">
                 {{ field.help_text }}
             </label>

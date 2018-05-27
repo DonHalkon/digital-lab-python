@@ -14,6 +14,8 @@ def add_compound(request):
     if request.method == 'POST':
         form = CompoundForm(request.POST)
         if form.is_valid():
+            #fixme
+            # if not form.validate_unique():
             form.save(commit=True)
             return render(request, 'digitallab/view-compounds.html',
                           {'compounds_list': Compound.objects.order_by('-id')})
